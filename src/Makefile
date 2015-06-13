@@ -9,7 +9,7 @@ ARCH = $(shell uname -m)	# ARCH becomes the output from the uname -m command.
 CXX=/usr/bin/g++
 CXXFLAGS=-g -O2 -Wall $(INCS)
 
-SRCS = SudukoBoard.cpp
+SRCS =  Board.cpp
 MAIN_SRC = Main.cpp
 
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
