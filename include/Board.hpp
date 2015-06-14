@@ -57,6 +57,10 @@ namespace sudukoSolver {
         bool verifyAndFill(int row, int col, int num);
         bool solveProblem();
         void printBoard();
+        void fillFixBlocks(int row, int col, int num){
+            _board[row][col]._val = num;
+            _board[row][col]._fix = true;
+        }
 
     };
 
