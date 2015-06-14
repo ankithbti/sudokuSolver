@@ -2,6 +2,8 @@
 //#include <SudukoBoard.hpp>
 
 #include "Board.hpp"
+#include <SudokuHttpHandler.hpp>
+#include <HttpServer.hpp>
 
 const int SIZE = 3;
 const int ARRAY_SIZE = SIZE * 2;
@@ -79,7 +81,28 @@ bool solve()
 
 int main()
 {
+    sudukoSolver::Board bo;
+    std::string port("1234");
+    std::string docRoot("/Users/ankithbti/Development/Cpp/httpServer");
+    httpServer::HttpReqHandlerInterface::SmartPtr reqHandler(new sudukoSolver::SudokuHttpHandler(docRoot, bo));
+    httpServer::HttpServer server(port, reqHandler);
+    server.start();
 
+    try
+    {
+        while (true)
+        {
+            boost::this_thread::sleep(boost::posix_time::seconds(1));
+        }
+    }
+    catch (const boost::thread_interrupted& err)
+    {
+        std::cout << " Stopping the Server. " << std::endl;
+    }
+
+    server.stop();
+
+    return 0;
     init();
     print();
     std::cout << std::endl;
