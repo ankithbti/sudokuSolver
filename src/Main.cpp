@@ -4,6 +4,8 @@
 #include "Board.hpp"
 #include <SudokuHttpHandler.hpp>
 #include <HttpServer.hpp>
+#include <TestInterface.hpp>
+#include <HamiltonCycle.hpp>
 
 const int SIZE = 3;
 const int ARRAY_SIZE = SIZE * 2;
@@ -81,6 +83,31 @@ bool solve()
 
 int main()
 {
+    
+    sudukoSolver::TestInterface<int> t;
+    std::cout << t.getVal() << std::endl;
+    
+    sudukoSolver::HamiltonCycle hc;
+    hc.printGraph();
+    
+    hc.setEdge(0,1);
+    hc.setEdge(1,2);
+    hc.setEdge(0,2);
+    hc.setEdge(0,3);
+    hc.setEdge(2,3);
+    
+    hc.printGraph();
+    
+    if(hc.hamiltonPath(-1)){
+        std::cout << " Got Solution " << std::endl;
+    }else{
+        std::cout << " No Solution " << std::endl;
+    }
+    
+    hc.printGraph();
+    
+    
+    return 0;
     sudukoSolver::Board bo;
     std::string port("1234");
     std::string docRoot("/Users/ankithbti/Development/Cpp/httpServer");
